@@ -1,0 +1,12 @@
+{
+    "actorSpecification": 1,
+    "name": "show-hn-profile-scraper",
+    "title": "Show HN Profile Scraper",
+    "description": "Walks Show HN chronologically and saves each unique poster's profile link, bio, and any links found in that bio.",
+    "version": "0.0",
+    "meta": {
+        "templateId": "ts-empty"
+    },
+    "input": "./input_schema.json",
+    "dockerfile": "../Dockerfile"
+}

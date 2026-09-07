@@ -1,0 +1,25 @@
+{
+    "name": "show-hn-profile-scraper",
+    "version": "0.0.1",
+    "type": "module",
+    "description": "Walks Show HN chronologically and saves each unique poster's profile, bio, and bio links.",
+    "engines": {
+        "node": ">=18.0.0"
+    },
+    "scripts": {
+        "start": "node dist/main.js",
+        "build": "tsc"
+    },
+    "dependencies": {
+        "apify": "^3.2.6"
+    },
+    "devDependencies": {
+        "@apify/tsconfig": "^0.1.0",
+        "@types/node": "^22.0.0",
+        "typescript": "^5.6.0"
+    },
+    "main": "index.js",
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+}

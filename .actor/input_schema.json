@@ -1,0 +1,39 @@
+{
+    "$schema": "https://apify.com/schemas/v1/input.ide.json",
+    "title": "Show HN Profile Scraper",
+    "description": "Walks Show HN chronologically, from as far back as you tell it to, collecting each unique poster's profile link, bio, and any links found in that bio. Remembers where it left off between runs.",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "windowDays": {
+            "title": "Window Size (days)",
+            "type": "integer",
+            "description": "How many days of Show HN history to scan per step. Smaller windows are safer for very active periods, larger windows finish faster during quiet periods.",
+            "editor": "number",
+            "default": 30,
+            "minimum": 1
+        },
+        "maxNewUsers": {
+            "title": "Maximum New Profiles This Run",
+            "type": "integer",
+            "description": "Stop this run after saving this many new profiles. Use 0 for unlimited.",
+            "editor": "number",
+            "default": 200,
+            "minimum": 0
+        },
+        "maxWindows": {
+            "title": "Maximum Windows This Run",
+            "type": "integer",
+            "description": "Stop this run after scanning this many time windows, regardless of how many profiles were found. Use 0 for unlimited.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "startTimestamp": {
+            "title": "Start Timestamp (advanced, first run only)",
+            "type": "integer",
+            "description": "Unix timestamp to start from on the very first run. Ignored on every run after that, since progress is remembered automatically. Leave blank to start from Hacker News's own launch day.",
+            "editor": "number"
+        }
+    }
+}
