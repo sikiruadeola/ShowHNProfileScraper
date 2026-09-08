@@ -41,6 +41,7 @@ interface RunState {
 const ALGOLIA_BASE = 'https://hn.algolia.com/api/v1';
 const HN_PROFILE_BASE = 'https://news.ycombinator.com/user?id=';
 const STATE_KEY = 'SHOW_HN_STATE';
+const STATE_STORE_NAME = 'show-hn-progress';
 
 // Show HN itself did not exist as a tagged thing from day one of Hacker
 // News, so there is nothing meaningful to fetch before this. If Algolia's
@@ -161,8 +162,13 @@ async function fetchUserProfile(username: string): Promise<UserRecord | null> {
     }
 }
 
+// Every run gets its own throwaway default storage unless told otherwise.
+// Progress needs to survive between separate runs, so this opens one fixed,
+// named store that every run reads from and writes back to, instead of each
+// run's own temporary one.
 async function loadState(fallbackStartTimestamp: number): Promise<RunState> {
-    const saved = await Actor.getValue<RunState>(STATE_KEY);
+    const store = await Actor.openKeyValueStore(STATE_STORE_NAME);
+    const saved = await store.getValue<RunState>(STATE_KEY);
 
     if (saved) {
         return saved;
@@ -172,7 +178,8 @@ async function loadState(fallbackStartTimestamp: number): Promise<RunState> {
 }
 
 async function saveState(state: RunState): Promise<void> {
-    await Actor.setValue(STATE_KEY, state);
+    const store = await Actor.openKeyValueStore(STATE_STORE_NAME);
+    await store.setValue(STATE_KEY, state);
 }
 
 await Actor.init();
